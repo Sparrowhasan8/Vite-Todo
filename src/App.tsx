@@ -12,7 +12,7 @@ const App: React.FC = () => {
     status: false,
   });
 
-  // ✅ THEME STATE (FIXED)
+  // Theme
   const [theme, setTheme] = useState("light");
 
   useEffect(() => {
@@ -21,12 +21,14 @@ const App: React.FC = () => {
 
   const itemsComplete = todos.filter((t: TodoItem) => t.status).length;
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setNewTodo({ id: newTodo.id, value: event.target.value, status: false });
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setNewTodo({ ...newTodo, value: e.target.value });
   };
 
-  const handleSubmit = (event: React.SyntheticEvent) => {
-    event.preventDefault();
+  const handleSubmit = (e: React.SyntheticEvent) => {
+    e.preventDefault();
+    if (!newTodo.value.trim()) return;
+
     setTodos([...todos, newTodo]);
     setNewTodo({
       id: todos.length,
@@ -35,20 +37,20 @@ const App: React.FC = () => {
     });
   };
 
-  const handleRemoveClick = (_event: React.MouseEvent, id: number) => {
+  const handleRemoveClick = (_e: React.MouseEvent, id: number) => {
     setTodos(todos.filter((t: TodoItem) => t.id !== id));
   };
 
-  const handleStatusClick = (_event: React.MouseEvent, id: number) => {
-    let items = [...todos];
-    let index = todos.findIndex((t: TodoItem) => t.id === id);
-    items[index].status = !items[index].status;
-    setTodos(items);
+  const handleStatusClick = (_e: React.MouseEvent, id: number) => {
+    const updated = todos.map((t: TodoItem) =>
+      t.id === id ? { ...t, status: !t.status } : t
+    );
+    setTodos(updated);
   };
 
   return (
     <main>
-      {/* ✅ THEME BUTTON (VISIBLE NOW) */}
+      {/* Theme Toggle */}
       <button
         className="theme-toggle"
         onClick={() => setTheme(theme === "light" ? "dark" : "light")}
@@ -57,21 +59,22 @@ const App: React.FC = () => {
       </button>
 
       <header>
-        <h1>React Todo App</h1>
-        <h2>Created by Abul Hasan</h2>
+        <h1>React Todo</h1>
+        <h2>by Abul Hasan</h2>
         <span>
-          Complete: {itemsComplete}/{todos.length}
+          {itemsComplete}/{todos.length} completed
         </span>
       </header>
 
       <div className="new-todo">
         <form onSubmit={handleSubmit}>
-          <label>Enter a new task</label>
+          <label>Add Task</label>
           <div className="new-todo__h">
             <input
               type="text"
-              onChange={handleChange}
+              placeholder="Enter task..."
               value={newTodo.value}
+              onChange={handleChange}
               required
             />
             <button type="submit">+</button>
@@ -82,8 +85,8 @@ const App: React.FC = () => {
       <ul className="todos">
         {todos.map((todo: TodoItem) => (
           <li
-            className={todo.status ? "todo todo--complete" : "todo"}
             key={todo.id}
+            className={todo.status ? "todo todo--complete" : "todo"}
           >
             <span onClick={(e) => handleRemoveClick(e, todo.id)}>
               &times;

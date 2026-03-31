@@ -20,13 +20,15 @@ body {
   transition: 0.3s;
 }
 
+/* Main Container */
 main {
-  margin: 4rem auto;
-  padding: 2rem;
-  width: 400px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  width: 90%;
+  max-width: 420px;
   border-radius: 16px;
   background: var(--card);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
   position: relative;
 }
 
@@ -35,29 +37,35 @@ main {
   position: absolute;
   top: 10px;
   right: 10px;
-  background: var(--accent);
-  color: white;
-  border: none;
+  font-size: 14px;
   padding: 6px 10px;
   border-radius: 6px;
-  cursor: pointer;
 }
 
 /* Header */
 header {
   text-align: center;
+  margin-bottom: 1.5rem;
 }
 
 header h1 {
+  margin: 0;
+  font-size: 1.6rem;
   background: linear-gradient(135deg, var(--accent), #a5b4fc);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
+header h2 {
+  margin: 5px 0;
+  font-size: 0.9rem;
+  opacity: 0.7;
+}
+
 /* Input */
 .new-todo__h {
   display: flex;
-  gap: 10px;
+  gap: 8px;
 }
 
 input {
@@ -75,19 +83,54 @@ button {
   background: var(--accent);
   color: white;
   cursor: pointer;
+  min-height: 40px;
+  padding: 8px 12px;
+  transition: 0.2s;
+}
+
+button:hover {
+  transform: scale(1.05);
 }
 
 /* Todos */
+.todos {
+  padding: 0;
+  list-style: none;
+}
+
 .todo {
   display: flex;
   justify-content: space-between;
-  padding: 10px;
+  align-items: center;
+  padding: 12px;
   margin-top: 10px;
-  border-radius: 6px;
+  border-radius: 8px;
   background: rgba(0,0,0,0.05);
+  min-height: 45px;
+  transition: 0.2s;
+}
+
+.todo:hover {
+  transform: translateX(5px);
+}
+
+.todo span {
+  cursor: pointer;
+  font-size: 18px;
 }
 
 .todo--complete {
   opacity: 0.5;
   text-decoration: line-through;
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  main {
+    padding: 1rem;
+  }
+
+  header h1 {
+    font-size: 1.3rem;
+  }
 }
