@@ -1,172 +1,93 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap");
-
 :root {
-  --black: #222831;
-  --white: #dddddd;
-  --blue: #4a8cce;
-  --red: #f05454;
+  --bg: #ffffff;
+  --text: #111827;
+  --card: #f3f4f6;
+  --accent: #6366f1;
 }
 
-html,
+body.dark {
+  --bg: #0f172a;
+  --text: #e2e8f0;
+  --card: rgba(255, 255, 255, 0.08);
+  --accent: #818cf8;
+}
+
 body {
   margin: 0;
-  padding: 0;
-}
-
-body {
-  position: relative;
-  font-family: "Inter";
-  box-sizing: border-box;
-
-  min-height: 100vh;
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: center;
-
-  color: var(--white);
-  background-color: var(--black);
-}
-
-.github-link {
-  position: absolute;
-
-  top: 2rem;
-  left: 2rem;
-}
-
-.github-link a {
-  display: flex;
-  align-items: center;
-  color: white;
-  text-decoration: none;
-}
-
-.github-link a:hover {
-  text-decoration: underline;
-}
-
-.github-link svg {
-  margin-right: 0.5rem;
+  font-family: "Inter", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  transition: 0.3s;
 }
 
 main {
-  margin-top: 4rem;
+  margin: 4rem auto;
+  padding: 2rem;
+  width: 400px;
+  border-radius: 16px;
+  background: var(--card);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+  position: relative;
 }
 
-h1 {
-  margin: 0;
-  margin-bottom: 0.5rem;
+/* Theme Button */
+.theme-toggle {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: var(--accent);
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
 }
 
+/* Header */
 header {
-  margin-bottom: 3rem;
-  padding: 1rem 0;
-  border-top: 1px solid var(--white);
-  border-bottom: 1px solid var(--white);
+  text-align: center;
 }
 
-header h2 {
-  margin: 0 0 3rem 0;
-  font-size: 1rem;
-  font-weight: 400;
+header h1 {
+  background: linear-gradient(135deg, var(--accent), #a5b4fc);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-header h2 a {
-  color: inherit;
-}
-
-.todos {
-  padding-left: 0;
-}
-
-.new-todo form {
-  display: flex;
-  flex-flow: column nowrap;
-}
-
+/* Input */
 .new-todo__h {
   display: flex;
-  flex-flow: row nowrap;
-  align-items: center;
+  gap: 10px;
 }
 
-.new-todo label {
-  font-weight: 500;
-  margin-bottom: 0.5rem;
-}
-
-.new-todo input {
+input {
+  flex: 1;
+  padding: 10px;
+  border-radius: 6px;
   border: none;
-  outline: none;
-  border-radius: 0.5rem;
-  padding: 0.5rem;
-
-  height: 1.5rem;
+  background: rgba(0,0,0,0.05);
+  color: var(--text);
 }
 
-.new-todo__h input {
-  flex: 0 1 calc(80% - 0.5rem);
-  margin-right: 0.5rem;
-}
-
-.new-todo button {
+button {
+  border: none;
+  border-radius: 6px;
+  background: var(--accent);
+  color: white;
   cursor: pointer;
-  height: 2.5rem;
-  width: 2.5rem;
-  border-radius: 0.5rem;
-
-  font-size: 1.25rem;
-
-  font-weight: 500;
-  border: none;
-  outline: none;
-
-  color: var(--white);
-  background-color: var(--blue);
 }
 
+/* Todos */
 .todo {
   display: flex;
-  flex-flow: row nowrap;
-  align-items: center;
-  user-select: none;
+  justify-content: space-between;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 6px;
+  background: rgba(0,0,0,0.05);
 }
 
-.todo span {
-  cursor: pointer;
-  margin-right: 1rem;
-}
-
-.todo span:hover {
-  color: var(--red);
-}
-
-.todo p {
-  cursor: pointer;
-  position: relative;
-  margin-right: 1rem;
-}
-
-.todo p::before {
-  position: absolute;
-  z-index: 5;
-  content: "";
-  top: 10px;
-  left: 0;
-
-  width: 100%;
-  height: 4px;
-  background-color: var(--blue);
-
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: all 0.2s ease-in-out;
-}
-
-.todo p:hover::before {
-  transform: scaleX(1);
-}
-
-.todo--complete p::before {
-  transform: scaleX(1);
+.todo--complete {
+  opacity: 0.5;
+  text-decoration: line-through;
 }
